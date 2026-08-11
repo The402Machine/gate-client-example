@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#080a08" />
+  <title>GATE 1-sat demo</title>
+  <style>
+    :root { color-scheme: dark; --bg:#080a08; --panel:#111510; --line:#34402f; --ink:#edf3e6; --muted:#9aa895; --acid:#c7ff3d; --orange:#ff6433; }
+    * { box-sizing:border-box; } body { margin:0; min-width:320px; background:radial-gradient(circle at 80% 0,rgba(199,255,61,.09),transparent 34%),var(--bg); color:var(--ink); font:16px/1.55 system-ui,sans-serif; }
+    main { width:min(760px,calc(100% - 28px)); min-height:100vh; margin:auto; display:grid; align-content:center; padding:48px 0; }
+    .tag { color:var(--acid); font:700 11px ui-monospace,monospace; letter-spacing:.13em; } h1 { margin:14px 0; font-size:clamp(48px,14vw,88px); line-height:.88; letter-spacing:-.07em; } h1 em { color:var(--acid); font-style:normal; }
+    .card { margin-top:30px; padding:clamp(20px,5vw,34px); border:1px solid var(--line); background:var(--panel); box-shadow:8px 9px 0 #030403; }
+    .amount { display:flex; align-items:end; gap:12px; padding-bottom:22px; border-bottom:1px solid var(--line); } .amount strong { color:var(--acid); font-size:72px; line-height:.8; } .amount span { color:var(--muted); font:700 12px ui-monospace,monospace; }
+    ol { padding-left:22px; color:var(--muted); } li { margin:12px 0; } code { color:var(--acid); overflow-wrap:anywhere; }
+    button { width:100%; min-height:54px; margin-top:18px; border:1px solid var(--acid); background:var(--acid); color:#080a08; font:700 12px ui-monospace,monospace; letter-spacing:.09em; cursor:pointer; }
+    button:disabled { border-color:#3a4037; background:#20251e; color:#7c8577; cursor:not-allowed; }
+    .status { margin:16px 0 0; padding:13px; border-left:2px solid var(--orange); color:var(--muted); background:rgba(255,100,51,.04); }
+    footer { margin-top:28px; color:var(--muted); font:11px ui-monospace,monospace; }
+  </style>
+</head>
+<body>
+<main>
+  <p class="tag">GATE / CONTROLLED REAL-PAYMENT DEMO</p>
+  <h1>One request.<br><em>One sat.</em></h1>
+  <p>This isolated example will demonstrate the complete GATE flow without pretending that a wallet success screen proves settlement.</p>
+  <section class="card">
+    <div class="amount"><strong>1</strong><span>SAT / AUTHORIZED REQUEST</span></div>
+    <ol>
+      <li>Create one request-bound HTTP 402 challenge.</li>
+      <li>Pay the merchant invoice directly.</li>
+      <li>Submit or verify the cryptographic payer proof.</li>
+      <li>Validate the signed GATE receipt and reveal the demo response.</li>
+    </ol>
+    <button disabled>PAYMENT TEST NOT STARTED</button>
+    <p class="status">The live payment action remains disabled until the GATE transport fix, review, deployment and controlled project provisioning are complete.</p>
+  </section>
+  <footer>Open source example · no custody · no subscription · exact request binding</footer>
+</main>
+</body>
+</html>
