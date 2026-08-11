@@ -21,6 +21,16 @@ npm start
 
 Open `http://127.0.0.1:4130`.
 
+## Container deployment
+
+```bash
+docker compose config --quiet
+docker compose up -d --build
+curl --fail http://127.0.0.1:4130/health
+```
+
+The versioned Nginx vhost is in `deploy/gatedemo.the402machine.com.conf`. Install it only after DNS resolves to the host and Certbot has issued the hostname certificate.
+
 ## Production settings
 
 ```text

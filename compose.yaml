@@ -1,0 +1,16 @@
+services:
+  gate-demo:
+    build: .
+    container_name: gate-client-example
+    restart: unless-stopped
+    env_file:
+      - .env.production
+    ports:
+      - "127.0.0.1:4130:4130"
+    read_only: true
+    tmpfs:
+      - /tmp:size=8m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
