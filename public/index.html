@@ -13,9 +13,10 @@
     .card { margin-top:30px; padding:clamp(20px,5vw,34px); border:1px solid var(--line); background:var(--panel); box-shadow:8px 9px 0 #030403; }
     .amount { display:flex; align-items:end; gap:12px; padding-bottom:22px; border-bottom:1px solid var(--line); } .amount strong { color:var(--acid); font-size:72px; line-height:.8; } .amount span { color:var(--muted); font:700 12px ui-monospace,monospace; }
     ol { padding-left:22px; color:var(--muted); } li { margin:12px 0; } code { color:var(--acid); overflow-wrap:anywhere; }
-    button { width:100%; min-height:54px; margin-top:18px; border:1px solid var(--acid); background:var(--acid); color:#080a08; font:700 12px ui-monospace,monospace; letter-spacing:.09em; cursor:pointer; }
+    button,input { width:100%; min-height:54px; margin-top:18px; border:1px solid var(--acid); font:700 12px ui-monospace,monospace; letter-spacing:.09em; }
+    button { background:var(--acid); color:#080a08; cursor:pointer; } input { background:#080a08; color:var(--ink); padding:0 14px; text-transform:lowercase; }
     button:disabled { border-color:#3a4037; background:#20251e; color:#7c8577; cursor:not-allowed; }
-    .status { margin:16px 0 0; padding:13px; border-left:2px solid var(--orange); color:var(--muted); background:rgba(255,100,51,.04); }
+    .status,.invoice { margin:16px 0 0; padding:13px; border-left:2px solid var(--orange); color:var(--muted); background:rgba(255,100,51,.04); overflow-wrap:anywhere; }
     footer { margin-top:28px; color:var(--muted); font:11px ui-monospace,monospace; }
   </style>
 </head>
@@ -32,10 +33,15 @@
       <li>Submit or verify the cryptographic payer proof.</li>
       <li>Validate the signed GATE receipt and reveal the demo response.</li>
     </ol>
-    <button disabled>PAYMENT TEST NOT STARTED</button>
-    <p class="status">The live payment action remains disabled until the GATE transport fix, review, deployment and controlled project provisioning are complete.</p>
+    <button>CREATE 1-SAT INVOICE</button>
+    <p class="invoice" hidden></p>
+    <input id="preimage" type="text" inputmode="text" autocomplete="off" maxlength="64" placeholder="64-character payment preimage" hidden />
+    <button id="prove" hidden>SUBMIT PAYER PROOF</button>
+    <button id="poll" hidden>POLL SETTLEMENT PROOF</button>
+    <p class="status">No invoice exists yet. Starting the test will create one real invoice for exactly 1 sat, paid directly to pay@mikelcalvo.net.</p>
   </section>
   <footer>Open source example · no custody · no subscription · exact request binding</footer>
 </main>
+<script src="/app.js" defer></script>
 </body>
 </html>

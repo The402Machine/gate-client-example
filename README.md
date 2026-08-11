@@ -10,7 +10,7 @@ The final route costs **1 sat** and demonstrates:
 4. local verification of the signed GATE receipt;
 5. delivery of a synthetic demo response.
 
-The payment action intentionally remains disabled until the parent GATE deployment has passed its transport, contract, security and production gates. No project capability or signing material belongs in this repository.
+The server-side payment action is fail-closed unless all project and receipt-verification settings are present. No project capability or signing material belongs in this repository. Creating a challenge creates one real invoice for exactly 1 sat; loading the page and running health checks never create invoices.
 
 ## Local preview
 
@@ -20,6 +20,16 @@ npm start
 ```
 
 Open `http://127.0.0.1:4130`.
+
+## Production settings
+
+```text
+GATE_BASE_URL=https://the402machine.com
+GATE_PROJECT_ID=gate_project_...
+GATE_PROJECT_KEY=[server-side capability]
+GATE_ROUTE_ID=[persisted route UUID]
+GATE_RECEIPT_KEY_ID=[published JWKS kid]
+```
 
 ## Security boundary
 
