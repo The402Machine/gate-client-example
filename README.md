@@ -14,12 +14,25 @@ The server-side payment action is fail-closed unless all project and receipt-ver
 
 ## Local preview
 
+Use Node.js 22 LTS. This example has **no npm dependencies**: it uses Node built-ins and browser APIs. No `npm install`, lockfile, or registry audit is needed while that remains true.
+
 ```bash
 npm test
 npm start
 ```
 
-Open `http://127.0.0.1:4130`.
+Open `http://127.0.0.1:4130`. The test server explicitly clears payment configuration and uses a loopback-only GATE URL, even if the parent shell has production settings.
+
+## Runtime maintenance
+
+The Dockerfile pins Node.js **22.23.4** on Alpine **3.24** by its multi-platform image digest so rebuilds cannot silently change the runtime or base OS. Node 22 is in Maintenance LTS until **2027-04-30**; plan a separately tested move to a supported LTS major before then.
+
+For each maintenance update:
+
+1. Check the [latest Node 22 release](https://nodejs.org/dist/latest-v22.x/) and [support schedule](https://github.com/nodejs/Release#release-schedule).
+2. Pull the supported `node:22-alpine` image, inspect its runtime/Alpine versions and `RepoDigests`, then update the Dockerfile's versioned tag and digest together. A digest pin needs deliberate refreshes for security fixes, including base-image rebuilds with an unchanged Node version.
+3. Run the full `npm test` suite on that Node 22 image and build the actual Dockerfile with `docker build --pull -t gate-client-example:verify .`.
+4. Smoke-test the built image without production environment files and with `--network none`: health, HTML, and JavaScript must work, and `POST /api/demo/start` must return `503`. Do not use a configured challenge route as a health check: it creates a real invoice.
 
 ## Container deployment
 

@@ -6,7 +6,20 @@ import { spawn } from "node:child_process";
 import { bodyDigest, verifyReceipt } from "../src/gate-receipt.js";
 
 const port = 4319;
-const server = spawn(process.execPath, ["src/server.js"], { cwd: new URL("..", import.meta.url), env: { ...process.env, PORT: String(port) }, stdio: ["ignore", "pipe", "pipe"] });
+// Never inherit a production payment capability into the fail-closed tests.
+const server = spawn(process.execPath, ["src/server.js"], {
+  cwd: new URL("..", import.meta.url),
+  env: {
+    ...process.env,
+    PORT: String(port),
+    GATE_BASE_URL: "http://127.0.0.1:9",
+    GATE_PROJECT_ID: "",
+    GATE_PROJECT_KEY: "",
+    GATE_ROUTE_ID: "",
+    GATE_RECEIPT_KEY_ID: "",
+  },
+  stdio: ["ignore", "pipe", "pipe"],
+});
 await new Promise((resolve, reject) => {
   const timer = setTimeout(() => reject(new Error("demo server did not start")), 5000);
   server.stdout.once("data", () => { clearTimeout(timer); resolve(); });
